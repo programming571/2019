@@ -76,21 +76,22 @@ public class Robot extends TimedRobot {
     Shuffleboard.getTab("Game Control").add("Auto mode", chooser);
 
     //SmartDashboard Commands
-    Shuffleboard.getTab("Command Test").add("ArcadeDrive", new ArcadeDrive());
-    Shuffleboard.getTab("Command Test").add("RotateArm", new RotateArm());
-    Shuffleboard.getTab("Command Test").add("RollerCollect", new RollerCollect());
-    Shuffleboard.getTab("Command Test").add("RollerPush", new RollerPush());
-    Shuffleboard.getTab("Command Test").add("RobotRaise", new RobotRaise());
-    Shuffleboard.getTab("Command Test").add("RobotDown", new RobotDown());
-    Shuffleboard.getTab("Command Test").add("RotatingArmCompleteDown", new RotatingArmCompleteDown());
-    Shuffleboard.getTab("Command Test").add("RotatingArmCompleteUp", new RotatingArmCompleteUp());
+    Shuffleboard.getTab("Command Test").add("RKDrive", new RKDrive());
+    Shuffleboard.getTab("Command Test").add("RotateArm", new RotateArm(0));
     Shuffleboard.getTab("Command Test").add("Shoot", new Shoot());
-    Shuffleboard.getTab("Command Test").add("RunRoller", new RunRoller());
-    Shuffleboard.getTab("Command Test").add("PusherBack", new PusherBack());
+    Shuffleboard.getTab("Command Test").add("Roll Stop", new Roll(0));
+    Shuffleboard.getTab("Command Test").add("Roll Intake", new Roll(-0.2));
+    Shuffleboard.getTab("Command Test").add("Roll Outake", new Roll(0.4));
     
+    
+    //SmartDashboard Subsystem
+    Shuffleboard.getTab("Subsystems").add("DriveTrain", driveTrain);
+    Shuffleboard.getTab("Subsystems").add("Lift", lift);
+    Shuffleboard.getTab("Subsystems").add("CargoRoller", cargoRoller);
+    Shuffleboard.getTab("Subsystems").add("RotatingArm", rotatingArm);
+    Shuffleboard.getTab("Subsystems").add("Shover", shover);
     
 
-        
 
     }
 

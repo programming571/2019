@@ -44,14 +44,13 @@ public class RKDrive extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        System.out.println("initializing RKDrive");
+        // System.out.println("initializing RKDrive");
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         driveTrain.arcadeDrive(-driveStick.getY(), .5*driveStick.getZ()); // (speed, rotation)
-        System.out.println("arcade");
     }
 
     // Make this return true when this Command no longer needs to run execute()
