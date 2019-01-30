@@ -69,7 +69,7 @@ public class OI {
         opStick = new Joystick(1);
         
         collectCargoButton = new JoystickButton(opStick, 4);
-        collectCargoButton.whileHeld(new Roll(0));
+        collectCargoButton.whileHeld(new Roll());
         shootCargoButton = new JoystickButton(opStick, 3);
         shootCargoButton.whileHeld(new Shoot());
         driveStick = new Joystick(0);
@@ -79,8 +79,8 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("RKDrive", new RKDrive());
-        SmartDashboard.putData("RotateArm: speed", new RotateArm(0));
-        SmartDashboard.putData("Roll: default", new Roll(0));
+        SmartDashboard.putData("RotateArm", new RotateArm());
+        SmartDashboard.putData("Roll", new Roll());
         SmartDashboard.putData("Shoot", new Shoot());
         SmartDashboard.putData("Shove", new Shove());
 
