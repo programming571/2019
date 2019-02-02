@@ -10,6 +10,7 @@
 
 package org.usfirst.frc571.IntialAttempt;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -91,6 +92,8 @@ public class Robot extends TimedRobot {
         Shuffleboard.getTab("Subsystems").add("CargoRoller", cargoRoller);
         Shuffleboard.getTab("Subsystems").add("RotatingArm", rotatingArm);
         // Shuffleboard.getTab("Subsystems").add("Shover", shover);
+
+        CameraServer.getInstance().startAutomaticCapture();
 
     }
 
