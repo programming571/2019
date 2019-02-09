@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -67,6 +68,9 @@ public class DriveTrain extends Subsystem implements PIDOutput {
     private NetworkTableInstance tableInst;
     private NetworkTable table;
     private NetworkTableEntry kP_Entry, kD_Entry, kI_Entry, kF_Entry, rotationSpeed_Entry;
+    
+    ShuffleboardTab dataTab = Shuffleboard.getTab("Subsystems");
+    private NetworkTableEntry targetEntry;
     
 
     public DriveTrain() {
@@ -117,32 +121,32 @@ public class DriveTrain extends Subsystem implements PIDOutput {
         */
 
         ShuffleboardLayout pidValues = Shuffleboard.getTab("Subsystems")
-            .getLayout("PID", BuiltInLayouts.kList)
+            .getLayout("ahrs", BuiltInLayouts.kList)
             .withSize(2, 2)
             .withPosition(6, 1);
 
         tableInst = NetworkTableInstance.getDefault();
         table = tableInst.getTable("Shuffleboard");
-        kP_Entry = table.getEntry("/Shuffleboard/Subsystems/PID/ahrs/kP");
-        kD_Entry = table.getEntry("/Shuffleboard/Subsystems/PID/ahrs/kD");
-        kI_Entry = table.getEntry("/Shuffleboard/Subsystems/PID/ahrs/kI");
-        kF_Entry = table.getEntry("/Shuffleboard/Subsystems/PID/ahrs/kF");
-
-        rotationSpeed_Entry = table.getEntry("/Shuffleboard/Subsystems/PID/ahrs/rotationSpeed");
+        kP_Entry = table.getEntry("Subsystems/ahrs/PID/kP");
+        kD_Entry = table.getEntry("Subsystems/ahrs/PID/kD");
+        kI_Entry = table.getEntry("Subsystems/ahrs/PID/kI");
+        kF_Entry = table.getEntry("Subsystems/ahrs/PID/kF");
+        rotationSpeed_Entry = table.getEntry("Subsystems/ahrs/output/rotationSpeed");
     
         /* Uncomment these values if network tables doesn't have them (roboRio refresh or something) */
-        pidValues.add("ahrs/kP", kP);
-        pidValues.add("ahrs/kI", kI);
-        pidValues.add("ahrs/kD", kD);
-        pidValues.add("ahrs/kF", kF);
+        pidValues.add("PID/kP", kP_Entry.getDouble(kP));
+        pidValues.add("PID/kI", kI_Entry.getDouble(kI));
+        pidValues.add("PID/kD", kD_Entry.getDouble(kI));
+        pidValues.add("PID/kF", kF_Entry.getDouble(kI));
+        pidValues.add("output/rotationSpeed", 0.0);
 
-        pidValues.add("ahrs/rotationSpeed", 0.0);
-
-        turnController = new PIDController(kP, kI, kD, kF, Robot.positionSensor.getAHRS(), this);
+        turnController = new PIDController(kP_Entry.getDouble(kP), kI_Entry.getDouble(kI), kD_Entry.getDouble(kD), kF_Entry.getDouble(kF), Robot.positionSensor.getAHRS(), this);
 		turnController.setInputRange(-180.0f, 180.0f);
 		turnController.setOutputRange(-0.6, 0.6);
 		turnController.setAbsoluteTolerance(kToleranceDegrees);
-		turnController.setContinuous(true);
+        turnController.setContinuous(true);
+        
+        targetEntry = dataTab.add("ahrs/output/target", 0.0).getEntry();
 
     }
 
@@ -171,6 +175,8 @@ public class DriveTrain extends Subsystem implements PIDOutput {
 
     public void turnTo(double angle) {
 
+        targetEntry.setDouble(angle);
+
         double currentRotationRate;
         
         turnController.setP(kP_Entry.getDouble(kP));
@@ -183,7 +189,7 @@ public class DriveTrain extends Subsystem implements PIDOutput {
         currentRotationRate = rotateToAngleRate;
 
         rotationSpeed_Entry.setDouble(currentRotationRate);
-		// differentialDrive.arcadeDrive(0, currentRotationRate);
+		differentialDrive.arcadeDrive(0, currentRotationRate);
     }
     
     /* This function is invoked periodically by the PID Controller, */
