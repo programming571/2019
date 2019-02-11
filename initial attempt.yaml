@@ -137,56 +137,6 @@ Children:
           default: '2'
           name: CAN ID
           validators: *id002
-          value: '7'
-      Base: Talon SRX
-      Name: LiftTalon
-    - Children: []
-      Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: &id005 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
-            '23', '24', '25']
-          default: '0'
-          name: Input Channel (Digital)
-          validators: &id006 [DigitalChannel]
-          value: '0'
-      Base: Limit Switch
-      Name: UpperLimit
-    - Children: []
-      Properties:
-        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id005
-          default: '0'
-          name: Input Channel (Digital)
-          validators: *id006
-          value: '1'
-      Base: Limit Switch
-      Name: LowerLimit
-    Properties:
-      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Send to SmartDashboard, validators: null, value: false}
-      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Default command parameters
-        validators: null
-        value: []
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
-      Constants: !!robotbuilder.data.properties.ConstantsProperty
-        default: []
-        name: Constants
-        validators: null
-        value: []
-    Base: Subsystem
-    Name: Lift
-  - Children:
-    - Children: []
-      Properties:
-        CAN ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: '2'
-          name: CAN ID
-          validators: *id002
           value: '6'
       Base: Talon SRX
       Name: CargoRollerTalon
@@ -211,10 +161,12 @@ Children:
     - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id005
+          choices: &id005 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
+            '23', '24', '25']
           default: '0'
           name: Input Channel (Digital)
-          validators: *id006
+          validators: &id006 [DigitalChannel]
           value: '2'
       Base: Limit Switch
       Name: ForwardLimit
@@ -269,52 +221,6 @@ Children:
         value: *id007
     Base: Subsystem
     Name: RotatingArm
-  - Children:
-    - Children: []
-      Properties:
-        PCM ID: !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20']
-          default: '0'
-          name: PCM ID
-          validators: [PCMCompID]
-          value: '8'
-      Base: Compressor
-      Name: Compressor
-    - Children: []
-      Properties:
-        Output Channel (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7']
-          default: '0'
-          name: Output Channel (Solenoid)
-          validators: [Solenoid]
-          value: '0'
-        Output PCM (Solenoid): !!robotbuilder.data.properties.ChoicesProperty
-          choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11',
-            '12', '13', '14', '15', '16', '17', '18', '19', '20']
-          default: '0'
-          name: Output PCM (Solenoid)
-          validators: [Solenoid]
-          value: '8'
-      Base: Solenoid
-      Name: ShoverSolenoid
-    Properties:
-      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
-        name: Send to SmartDashboard, validators: null, value: false}
-      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
-        default: []
-        name: Default command parameters
-        validators: null
-        value: []
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Shove}
-      Constants: !!robotbuilder.data.properties.ConstantsProperty
-        default: []
-        name: Constants
-        validators: null
-        value: *id007
-    Base: Subsystem
-    Name: Shover
   - Children: []
     Properties:
       Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
@@ -577,7 +483,7 @@ Children:
       Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Run When Disabled, validators: null, value: false}
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: Shover}
+        name: Requires, type: Subsystem, validators: null, value: None}
       Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
         default: []
         name: Parameter presets
@@ -614,6 +520,33 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: TurnTo
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: true}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value:
+        - !!robotbuilder.data.properties.ParameterDescriptor {name: targetAngle, type: double}
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id013
+        - !!robotbuilder.data.properties.ParameterSet
+          name: targetAngle
+          parameters:
+          - {name: targetAngle, type: double, value: '0'}
+        name: Parameter presets
+        validators: null
+        value: *id013
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: RotateTo
   Properties: {}
   Base: Commands
   Name: Commands
