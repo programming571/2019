@@ -50,7 +50,13 @@ public class RKDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        driveTrain.arcadeDrive(-driveStick.getY(), .5*driveStick.getZ()); // (speed, rotation)
+        if (driveStick.getTrigger()){
+            driveTrain.arcadeDrive(0.3 * -driveStick.getY(), 0.3 * driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
+        }
+        else {
+            driveTrain.arcadeDrive(-driveStick.getY(), driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
+        }
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
