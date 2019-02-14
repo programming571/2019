@@ -173,6 +173,10 @@ public class DriveTrain extends Subsystem implements PIDOutput {
     	differentialDrive.arcadeDrive(speed, rotation);
     }
 
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+    	differentialDrive.tankDrive(leftSpeed, rightSpeed);
+    }
+
     public void turnTo(double angle) {
 
         targetEntry.setDouble(angle);
