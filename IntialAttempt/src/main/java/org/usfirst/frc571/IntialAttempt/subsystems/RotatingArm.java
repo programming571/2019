@@ -119,14 +119,14 @@ public class RotatingArm extends Subsystem {
         // System.out.println("rotating at speed of " + speed + ", control mode is " + armTalon.getControlMode());
         // arm moving down
         if((speed > 0) &&  armForwardLimitEntry.getBoolean(false)) {
-            armTalon.set(speed);
+            armTalon.set(ControlMode.PercentOutput, speed);
         }
         // arm moving up
         else if((speed < 0) && armReverseLimitEntry.getBoolean(false)) {
-            armTalon.set(speed);
+            armTalon.set(ControlMode.PercentOutput, speed);
         }
         else {
-            armTalon.set(0.0);
+            armTalon.set(ControlMode.PercentOutput, 0.0);
         }
     }
 
