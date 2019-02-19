@@ -139,6 +139,10 @@ public class RotatingArm extends Subsystem {
         // SmartDashboard.putNumber("position error", (double) armTalon.getClosedLoopError());
     }
 
+    public void homeArm() {
+        // if(armForwardLimitEntry.getBoolean(false) == )
+    }
+
     public double getEncoderCount() {
         return armTalon.getSelectedSensorPosition();
     }
