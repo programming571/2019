@@ -44,7 +44,7 @@ public class RotatingArm extends Subsystem {
     private DigitalInput reverseLimit;
     private WPI_TalonSRX armTalon;
     private static final double ROTATION = 1440;
-    private static final int kTIMEOUT_MS = 40;
+    private static final int kTIMEOUT_MS = 100;
     private static final boolean kINVERTED = false; // invert motor
     private static final boolean kSENSOR_PHASE = false; // invert encoder
     private static final int kPID_LOOP_IDX = 0;
@@ -140,7 +140,13 @@ public class RotatingArm extends Subsystem {
     }
 
     public void homeArm() {
-        // if(armForwardLimitEntry.getBoolean(false) == )
+        if(armForwardLimitEntry.getBoolean(false)) {
+            armTalon.set(-0.7);
+        }
+        else {
+            armTalon.set(0.0);
+        }
+        armTalon.setSelectedSensorPosition(0); // this is zero
     }
 
     public double getEncoderCount() {

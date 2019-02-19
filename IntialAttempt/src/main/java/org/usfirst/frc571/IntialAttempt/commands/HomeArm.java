@@ -44,7 +44,6 @@ public class HomeArm extends Command {
     @Override
     protected void execute() {
         Robot.rotatingArm.homeArm();
-        Robot.driveTrain.turnTo(m_targetAngle);
     }
 
     // Make this return true when this Command no longer needs to run execute()
