@@ -88,15 +88,12 @@ public class TimedForward extends TimedCommand {
 
 		if (xError > 1) {
 			xBias -= 0.01;
-
 			// System.out.println("correcting to left");
 		} else if (xError < -1) {
 			xBias += 0.01;
-
 			// System.out.println("correcting to right");
 		} else {
 			xBias = 0;
-
 			// System.out.println("correction done");
 		}
 

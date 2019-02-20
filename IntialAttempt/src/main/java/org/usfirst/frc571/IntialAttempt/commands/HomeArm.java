@@ -49,29 +49,18 @@ public class HomeArm extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        // if (Math.abs(m_targetAngle - angleEntry.getDouble(0.0)) < 3) {
-		// 	if (rateEntry.getDouble(0.0) < 0.5) {
-		// 		if (i == 0) {
-		// 			isFinishing = true;
-		// 		}
-		// 		if (isFinishing) {
-		// 			i++;
-		// 		}
-		// 	} else {
-		// 		isFinishing = false;
-		// 		i = 0;
-		// 	}
-		// 	if (i > 25) { // check if works for n cycles
-		// 		System.out.println("TurnTo finished");
-		// 		return true;
-		// 	}
-		// }
+        if(Robot.rotatingArm.getForwardLimit() == false) {
+            System.out.println("finished, hit limit");
+            return true;
+        }
 		return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.rotatingArm.RotateArm(0.0);
+        Robot.rotatingArm.zeroArmEncoder();
     }
 
     // Called when another command which requires one or more of the same

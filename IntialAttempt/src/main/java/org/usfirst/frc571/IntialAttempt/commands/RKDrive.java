@@ -51,7 +51,7 @@ public class RKDrive extends Command {
     @Override
     protected void execute() {
         if (driveStick.getTrigger()){
-            driveTrain.arcadeDrive(0.3 * -driveStick.getY(), 0.3 * driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
+            driveTrain.arcadeDrive(0.5 * -driveStick.getY(), 0.5 * driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
         }
         else {
             driveTrain.arcadeDrive(-driveStick.getY(), driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)

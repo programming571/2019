@@ -140,16 +140,18 @@ public class RotatingArm extends Subsystem {
     }
 
     public void homeArm() {
-        if(armForwardLimitEntry.getBoolean(false)) {
-            armTalon.set(-0.7);
-        }
-        else {
-            armTalon.set(0.0);
-        }
-        armTalon.setSelectedSensorPosition(0); // this is zero
+        armTalon.set(ControlMode.PercentOutput, 0.5);
     }
 
     public double getEncoderCount() {
         return armTalon.getSelectedSensorPosition();
+    }
+
+    public boolean getForwardLimit() {
+        return armForwardLimitEntry.getBoolean(false);
+    }
+
+    public void zeroArmEncoder() {
+        armTalon.setSelectedSensorPosition(0);
     }
 }

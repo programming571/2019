@@ -47,7 +47,11 @@ public class RotateArm extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.rotatingArm.RotateArm(opStick.getRawAxis(1));
+        double speed = opStick.getRawAxis(1);
+        if(Math.abs(speed) < 0.1) {
+            speed = 0.0;
+        }
+        Robot.rotatingArm.RotateArm(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
