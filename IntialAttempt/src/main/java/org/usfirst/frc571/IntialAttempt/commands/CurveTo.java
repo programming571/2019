@@ -75,7 +75,9 @@ public class CurveTo extends Command {
 			this.rightSpeed = (radius*speed)/(2.33+radius);
 		}
 		
-		requires(Robot.driveTrain);
+        requires(Robot.driveTrain);
+        
+        System.out.println("left speed: " + leftSpeed + " right speed: " + rightSpeed);
 		
 	}
 
