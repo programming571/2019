@@ -49,8 +49,8 @@ public class HomeArm extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if(Robot.rotatingArm.getForwardLimit() == false) {
-            System.out.println("finished, hit limit");
+        if(Robot.rotatingArm.getReverseLimit() == false) {
+            // System.out.println("finished, hit limit");
             return true;
         }
 		return false;

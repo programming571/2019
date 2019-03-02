@@ -38,7 +38,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class RotatingArm extends Subsystem {
 
     private ShuffleboardTab dataTab = Shuffleboard.getTab("Subsystems");
-    private NetworkTableEntry armForwardLimitEntry, armReverseLimitEntry;
+    private NetworkTableEntry armForwardLimitEntry, armReverseLimitEntry, encoderCountEntry;
 
     private DigitalInput forwardLimit;
     private DigitalInput reverseLimit;
@@ -46,13 +46,15 @@ public class RotatingArm extends Subsystem {
     private static final double ROTATION = 1440;
     private static final int kTIMEOUT_MS = 100;
     private static final boolean kINVERTED = false; // invert motor
-    private static final boolean kSENSOR_PHASE = false; // invert encoder
+    private static final boolean kSENSOR_PHASE = true; // invert encoder
     private static final int kPID_LOOP_IDX = 0;
     // private static final int kSLOT_IDX = 0;
-    private static final double kP = 0.5;
+    private static final double kP = 10.0;
     private static final double kI = 0.0;
-    private static final double kD = 0.0;
+    private static final double kD = 1.0;
     private static final double kF = 0.0;
+    public static final double RANGE = 2200.0;
+    public static final double DEGREE = RANGE/100;
 
     public RotatingArm() {
         super("RotatingArm");
@@ -71,6 +73,10 @@ public class RotatingArm extends Subsystem {
             .getEntry();
         armReverseLimitEntry = dataTab
             .add("RotatingArm/reverseLimit", reverseLimit.get())
+            .getEntry();
+
+        encoderCountEntry = dataTab
+            .add("RotatingArm/encoderCount", getEncoderCount())
             .getEntry();
 
         initializeTalon();
@@ -113,6 +119,7 @@ public class RotatingArm extends Subsystem {
     public void periodic() {
         armForwardLimitEntry.setBoolean(forwardLimit.get());
         armReverseLimitEntry.setBoolean(reverseLimit.get());
+        encoderCountEntry.setDouble(getEncoderCount());
     }
 
     public void RotateArm(double speed) {
@@ -130,8 +137,8 @@ public class RotatingArm extends Subsystem {
         }
     }
 
-    public void RotateTo(double targetAngle) {
-        // armTalon.set(mode, value);
+    public void RotateTo(double targetCounts) {
+        armTalon.set(ControlMode.Position, targetCounts);
     }
 
     public void rotate(double numRotations) {
@@ -140,7 +147,23 @@ public class RotatingArm extends Subsystem {
     }
 
     public void homeArm() {
-        armTalon.set(ControlMode.PercentOutput, 0.5);
+        armTalon.set(ControlMode.PercentOutput, -0.5);
+    }
+
+    public void rotateToLowBall() {
+        RotateTo(DEGREE * 55);
+    }
+
+    public void rotateToPanelPickup() {
+        RotateTo(DEGREE * 65);
+    }
+
+    public void rotateToPanelRelease() {
+        RotateTo(DEGREE * 70);
+    }
+
+    public void rotateToFloor() {
+        RotateTo(RANGE);
     }
 
     public double getEncoderCount() {
@@ -149,6 +172,10 @@ public class RotatingArm extends Subsystem {
 
     public boolean getForwardLimit() {
         return armForwardLimitEntry.getBoolean(false);
+    }
+
+    public boolean getReverseLimit() {
+        return armReverseLimitEntry.getBoolean(false);
     }
 
     public void zeroArmEncoder() {
