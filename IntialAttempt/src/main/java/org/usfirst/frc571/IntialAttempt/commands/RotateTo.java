@@ -58,12 +58,15 @@ public class RotateTo extends Command {
         // if(((m_targetAngle > Robot.rotatingArm.getEncoderCount()) && Robot.rotatingArm.getForwardLimit()) || ((targetCounts < getEncoderCount()) && getReverseLimit())) {
         //     armTalon.set(ControlMode.Position, targetCounts);
         // }
-        return Math.abs(RotatingArm.DEGREE * m_targetAngle - Robot.rotatingArm.getEncoderCount()) < RotatingArm.DEGREE * 1;
+        return Robot.oi.getOpStick().getRawButton(5);
+        //return false;
+        // return Math.abs(RotatingArm.DEGREE * m_targetAngle - Robot.rotatingArm.getEncoderCount()) < RotatingArm.DEGREE * 1;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        System.out.println("RotateTo end");
         // System.out.println("finished rotate to " + RotatingArm.DEGREE * m_targetAngle);
     }
 
@@ -71,5 +74,10 @@ public class RotateTo extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
+    }
+
+    public void setAngle(double angle) {
+        this.m_targetAngle = angle;
     }
 }
