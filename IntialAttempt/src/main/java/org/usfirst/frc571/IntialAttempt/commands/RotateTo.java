@@ -55,13 +55,16 @@ public class RotateTo extends Command {
     @Override
     protected boolean isFinished() {
         // if target angle is within 5 degrees of currentAngle, return true
+        // if(((m_targetAngle > Robot.rotatingArm.getEncoderCount()) && Robot.rotatingArm.getForwardLimit()) || ((targetCounts < getEncoderCount()) && getReverseLimit())) {
+        //     armTalon.set(ControlMode.Position, targetCounts);
+        // }
         return Math.abs(RotatingArm.DEGREE * m_targetAngle - Robot.rotatingArm.getEncoderCount()) < RotatingArm.DEGREE * 1;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-        System.out.println("finished rotate to " + RotatingArm.DEGREE * m_targetAngle);
+        // System.out.println("finished rotate to " + RotatingArm.DEGREE * m_targetAngle);
     }
 
     // Called when another command which requires one or more of the same

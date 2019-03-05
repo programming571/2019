@@ -50,7 +50,7 @@ public class RKDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        double driveX = driveStick.getX();
+        /*double driveX = driveStick.getX();
         double driveY = -driveStick.getY();
         double motorPercent = 1 - Math.abs(driveX);
         double leftMotor = 0.0;
@@ -65,18 +65,18 @@ public class RKDrive extends Command {
             leftMotor = driveY;
         }
         
-        driveTrain.tankDrive(leftMotor, rightMotor);
+        driveTrain.tankDrive(leftMotor, rightMotor);*/
 
         // driveTrain.tankDrive(driveStick.getY()*driveStick.getX(), rotation);
 
-        /*
+        
         if (driveStick.getTrigger()){
             driveTrain.arcadeDrive(0.5 * -driveStick.getY(), 0.5 * driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
         }
         else {
             driveTrain.arcadeDrive(-driveStick.getY(), driveStick.getZ()*(-driveStick.getThrottle()+1)*0.5); // (speed, rotation)
         }
-        */
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

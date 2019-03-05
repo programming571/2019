@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -86,14 +87,14 @@ public class RotatingArm extends Subsystem {
         /* Ensure sensor is positive when output is positive */
         armTalon.setInverted(kINVERTED);
         armTalon.setSensorPhase(kSENSOR_PHASE);
-        armTalon.setNeutralMode(NeutralMode.Brake);
+        // armTalon.setNeutralMode(NeutralMode.Brake);
 
         /* Config the peak and nominal outputs, 12V means full */
         // peak is max willing to drive motor, nominal is normal
         armTalon.configNominalOutputForward(0, kTIMEOUT_MS);
         armTalon.configNominalOutputReverse(0, kTIMEOUT_MS);
-        armTalon.configPeakOutputForward(1, kTIMEOUT_MS);
-        armTalon.configPeakOutputReverse(-1, kTIMEOUT_MS);
+        armTalon.configPeakOutputForward(0.7, kTIMEOUT_MS);
+        armTalon.configPeakOutputReverse(-0.7, kTIMEOUT_MS);
 
         /**
          * Config the allowable closed-loop error, Closed-Loop output will be neutral
@@ -138,7 +139,13 @@ public class RotatingArm extends Subsystem {
     }
 
     public void RotateTo(double targetCounts) {
-        armTalon.set(ControlMode.Position, targetCounts);
+        if(((targetCounts > getEncoderCount()) && getForwardLimit()) || ((targetCounts < getEncoderCount()) && getReverseLimit())) {
+            armTalon.set(ControlMode.Position, targetCounts);
+        }
+        else {
+            armTalon.set(ControlMode.PercentOutput, 0.0);
+            Scheduler.getInstance().removeAll();
+        }
     }
 
     public void rotate(double numRotations) {
@@ -147,23 +154,7 @@ public class RotatingArm extends Subsystem {
     }
 
     public void homeArm() {
-        armTalon.set(ControlMode.PercentOutput, -0.5);
-    }
-
-    public void rotateToLowBall() {
-        RotateTo(DEGREE * 55);
-    }
-
-    public void rotateToPanelPickup() {
-        RotateTo(DEGREE * 65);
-    }
-
-    public void rotateToPanelRelease() {
-        RotateTo(DEGREE * 70);
-    }
-
-    public void rotateToFloor() {
-        RotateTo(RANGE);
+        armTalon.set(ControlMode.PercentOutput, -0.7);
     }
 
     public double getEncoderCount() {
