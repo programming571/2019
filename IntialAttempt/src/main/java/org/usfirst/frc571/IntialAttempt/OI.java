@@ -94,7 +94,7 @@ public class OI {
 
         // B Button - Ball Low
         rotateLowBallButton = new JoystickButton(opStick, 2);
-        rotateLowBallButton.whenPressed(new RotateTo(65, 2));
+        rotateLowBallButton.whenPressed(new RotateTo(50, 2));
 
         // Right Bumper Button - Cargo + Human Player Station
         rotateBallCargoButton = new JoystickButton(opStick, 6);

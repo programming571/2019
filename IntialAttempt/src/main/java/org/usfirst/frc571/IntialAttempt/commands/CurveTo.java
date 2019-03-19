@@ -96,12 +96,12 @@ public class CurveTo extends Command {
     @Override
     protected boolean isFinished() {
         // turning left
-		if((rightSpeed > leftSpeed) && ((angleEntry.getDouble(0.0) < (targetAngle + 8)))) {
+		if((rightSpeed > leftSpeed) && ((angleEntry.getDouble(0.0) < (targetAngle + 5)))) {
 			System.out.println("finished curve to left");
 			return true;
 		}
 		// turning right
-		if((leftSpeed > rightSpeed) && ((angleEntry.getDouble(0.0) > (targetAngle - 8)))) {
+		if((leftSpeed > rightSpeed) && ((angleEntry.getDouble(0.0) > (targetAngle - 5)))) {
 			System.out.println("finished curve to right");
 			return true;
 		}

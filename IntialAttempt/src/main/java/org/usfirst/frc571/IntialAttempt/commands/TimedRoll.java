@@ -45,7 +45,7 @@ public class TimedRoll extends TimedCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.cargoRoller.roll(0.3);
+        Robot.cargoRoller.roll(0.6);
     }
 
 

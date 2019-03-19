@@ -64,7 +64,7 @@ public class TurnTo extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        if (Math.abs(m_targetAngle - angleEntry.getDouble(0.0)) < 3) {
+        if (Math.abs(m_targetAngle - angleEntry.getDouble(0.0)) < 4) {
 			if (rateEntry.getDouble(0.0) < 0.5) {
 				if (i == 0) {
 					isFinishing = true;
@@ -76,7 +76,7 @@ public class TurnTo extends Command {
 				isFinishing = false;
 				i = 0;
 			}
-			if (i > 25) { // check if works for n cycles
+			if (i > 5) { // check if works for n cycles
 				System.out.println("TurnTo finished");
 				return true;
 			}
