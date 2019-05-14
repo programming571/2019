@@ -17,12 +17,12 @@ import org.usfirst.frc571.IntialAttempt.subsystems.*;
 /**
  *
  */
-public class AutoSidePrep extends CommandGroup {
+public class AutoSidePrepLeft extends CommandGroup {
 
-    public AutoSidePrep() {
+    public AutoSidePrepLeft() {
         /******* addSequential(new WaitCommand(1)); *******/
         addSequential(new TimedForward(1, 0, 0.7));
-        addSequential(new CurveTo(25, 0.6, 2, false)); // (float targetAngle, double speed, double radius, boolean toLeft)
-        addSequential(new TimedForward(0.8, 25));
+        addSequential(new CurveTo(-20, 0.6, 2, true)); // (float targetAngle, double speed, double radius, boolean toLeft)
+        addSequential(new TimedForward(0.6, -20));
     } 
 }

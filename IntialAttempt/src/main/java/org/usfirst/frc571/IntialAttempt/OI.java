@@ -68,8 +68,9 @@ public class OI {
     public JoystickButton getEncoderCountButton;
 
     public OI() {
-        driveStick = new Joystick(0);
-        opStick = new Joystick(1);
+        // FOR ONE STICK ONLY
+        driveStick = new Joystick(1); // ONE STICK ONLY
+        opStick = new Joystick(0);
 
         // turnRightButton = new JoystickButton(driveStick, 4);
         // turnRightButton.whenPressed(new TurnTo(90.0));

@@ -51,7 +51,8 @@ public class RotateArm extends Command {
         if(Math.abs(speed) < 0.1) {
             speed = 0.0;
         }
-        Robot.rotatingArm.RotateArm(speed);
+        // FOR ONLY ONE STICK
+        // Robot.rotatingArm.RotateArm(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
